@@ -288,7 +288,7 @@ The screenshots below document the workflow and the two tested scenarios. Use re
 
 ### Workflow Overview
 
-![Workflow Overview](./screenshots/01-workflow-overview.png)
+![Workflow Overview](./Screenshots/01-workflow-overview.png)
 
 The workflow connects Google Forms, AI by Zapier, Paths, Google Sheets, and Gmail. The two branches each create a spreadsheet row and send an email.
 
@@ -296,13 +296,13 @@ The workflow connects Google Forms, AI by Zapier, Paths, Google Sheets, and Gmai
 
 #### 1. Zapier Workflow Execution
 
-![Valid Request Zapier Run](./screenshots/02-valid-request-zapier-run.png)
+![Valid Request Zapier Run](./Screenshots/02-valid-request-zapier-run.png)
 
 The run shows the request being processed and the `Valid` branch executing.
 
 #### 2. Valid Request Email
 
-![Valid Request Email](./screenshots/03-valid-request-email.png)
+![Valid Request Email](./Screenshots/03-valid-request-email.png)
 
 The email confirms that a valid client request was received and displays the extracted request details.
 
@@ -310,19 +310,19 @@ The email confirms that a valid client request was received and displays the ext
 
 #### 1. Zapier Workflow Execution
 
-![Human Review Zapier Run](./screenshots/04-human-review-zapier-run.png)
+![Human Review Zapier Run](./Screenshots/04-human-review-zapier-run.png)
 
 The run shows the `Fallback` branch executing for a request with missing required information.
 
 #### 2. Human Review Email
 
-![Human Review Email](./screenshots/05-human-review-email.png)
+![Human Review Email](./Screenshots/05-human-review-email.png)
 
 The notification identifies the request that requires review and lists the missing information.
 
 ### Spreadsheet Records
 
-![Client Intake Spreadsheet Records](./screenshots/06-client-intake-records.png)
+![Client Intake Spreadsheet Records](./Screenshots/06-client-intake-records.png)
 
 The spreadsheet shows the stored request records and their extracted fields, including the different status and routing outcomes.
 
