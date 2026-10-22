@@ -293,25 +293,25 @@ The screenshots below document both test scenarios, from the initial spreadsheet
 
 **1. Initial Spreadsheet Record**
 
-![Initial Spreadsheet Record — Valid Registration](./screenshots/01-valid-initial-record.png)
+![Initial Spreadsheet Record — Valid Registration](./Screenshots/01-valid-initial-record.png)
 
 The registration is stored in Google Sheets before processing begins.
 
 **2. Zapier Workflow Execution**
 
-![Zapier Run — Valid Registration](./screenshots/02-valid-zapier-run.png)
+![Zapier Run — Valid Registration](./Screenshots/02-valid-zapier-run.png)
 
 The workflow executes the AI summarization, JavaScript validation, and routing steps.
 
 **3. Updated Spreadsheet Record**
 
-![Processed Spreadsheet Record — Valid Registration](./screenshots/03-valid-processed-record.png)
+![Processed Spreadsheet Record — Valid Registration](./Screenshots/03-valid-processed-record.png)
 
 The existing record is updated with the learning goals summary and validation results, including `VALID`, `False`, and `normal`.
 
 **4. Participant Confirmation Email**
 
-![Participant Confirmation Email](./screenshots/04-valid-confirmation-email.png)
+![Participant Confirmation Email](./Screenshots/04-valid-confirmation-email.png)
 
 The participant receives an acknowledgment email confirming receipt of the registration submission, without guaranteeing acceptance or a reserved place.
 
@@ -321,25 +321,25 @@ The participant receives an acknowledgment email confirming receipt of the regis
 
 **1. Initial Spreadsheet Record**
 
-![Initial Spreadsheet Record — Human Review](./screenshots/05-review-initial-record.png)
+![Initial Spreadsheet Record — Human Review](./Screenshots/05-review-initial-record.png)
 
 The incomplete registration is stored in Google Sheets before processing. The test uses whitespace-only values in the required email and workshop name fields.
 
 **2. Zapier Workflow Execution**
 
-![Zapier Run — Human Review Required](./screenshots/06-review-zapier-run.png)
+![Zapier Run — Human Review Required](./Screenshots/06-review-zapier-run.png)
 
 The workflow evaluates the validation results and routes the submission to the human-review path.
 
 **3. Updated Spreadsheet Record**
 
-![Processed Spreadsheet Record — Human Review](./screenshots/07-review-processed-record.png)
+![Processed Spreadsheet Record — Human Review](./Screenshots/07-review-processed-record.png)
 
 The record is updated with `NEEDS_REVIEW`, `True`, and `human_review`, along with the missing fields and review reason.
 
 **4. Organizer Review Notification**
 
-![Human Review Notification Email](./screenshots/08-review-notification-email.png)
+![Human Review Notification Email](./Screenshots/08-review-notification-email.png)
 
 The organizer receives an email identifying the registration that requires review and listing the missing required information.
 
