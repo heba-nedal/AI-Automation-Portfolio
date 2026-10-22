@@ -287,27 +287,63 @@ The spreadsheet showed `NEEDS_REVIEW`, `True`, and `human_review`. The `missing_
 
 ## 📸 Evidence
 
-The screenshots below document the configured workflow and the two tested scenarios.
+The screenshots below document both test scenarios, from the initial spreadsheet record to workflow execution, post-processing updates, and the resulting email.
 
-### Final Result
+### Test 1: Valid Registration
 
-![Final Result](./screenshots/final-result.png)
+**1. Initial Spreadsheet Record**
 
-*Replace this placeholder with a screenshot of the completed workflow or the resulting registration records.*
+![Initial Spreadsheet Record — Valid Registration](./screenshots/01-valid-initial-record.png)
 
-### Workflow
+The registration is stored in Google Sheets before processing begins.
 
-![Workflow](./screenshots/workflow.png)
+**2. Zapier Workflow Execution**
 
-*Replace this placeholder with a screenshot of the full Zapier workflow, including both routing paths.*
+![Zapier Run — Valid Registration](./screenshots/02-valid-zapier-run.png)
 
-### Test Evidence
+The workflow executes the AI summarization, JavaScript validation, and routing steps.
 
-Recommended additional screenshots:
+**3. Updated Spreadsheet Record**
 
-- `./screenshots/test-1-valid-registration.png` — Valid spreadsheet record and participant acknowledgment email.
-- `./screenshots/test-2-human-review.png` — Incomplete spreadsheet record and organizer notification.
-- `./screenshots/zap-run-history.png` — Successful Zapier execution details.
+![Processed Spreadsheet Record — Valid Registration](./screenshots/03-valid-processed-record.png)
+
+The existing record is updated with the learning goals summary and validation results, including `VALID`, `False`, and `normal`.
+
+**4. Participant Confirmation Email**
+
+![Participant Confirmation Email](./screenshots/04-valid-confirmation-email.png)
+
+The participant receives an acknowledgment email confirming receipt of the registration submission, without guaranteeing acceptance or a reserved place.
+
+---
+
+### Test 2: Human Review Required
+
+**1. Initial Spreadsheet Record**
+
+![Initial Spreadsheet Record — Human Review](./screenshots/05-review-initial-record.png)
+
+The incomplete registration is stored in Google Sheets before processing. The test uses whitespace-only values in the required email and workshop name fields.
+
+**2. Zapier Workflow Execution**
+
+![Zapier Run — Human Review Required](./screenshots/06-review-zapier-run.png)
+
+The workflow evaluates the validation results and routes the submission to the human-review path.
+
+**3. Updated Spreadsheet Record**
+
+![Processed Spreadsheet Record — Human Review](./screenshots/07-review-processed-record.png)
+
+The record is updated with `NEEDS_REVIEW`, `True`, and `human_review`, along with the missing fields and review reason.
+
+**4. Organizer Review Notification**
+
+![Human Review Notification Email](./screenshots/08-review-notification-email.png)
+
+The organizer receives an email identifying the registration that requires review and listing the missing required information.
+
+---
 
 ---
 
@@ -315,14 +351,13 @@ Recommended additional screenshots:
 
 ### What Didn't Work as Expected?
 
-- Google Forms accepted whitespace-only values in required text fields, even though those values did not contain meaningful information.
-- The workflow needed to distinguish between a submitted field and a field containing a valid, non-whitespace value.
+Google Forms accepted a submission containing whitespace-only values in the required email and workshop name fields. These values needed to be treated as missing information rather than valid input.
 
 ### How Did I Solve It?
 
-- Added JavaScript validation to identify missing or whitespace-only required values.
-- Used explicit validation fields to control the workflow's routing decisions.
-- Configured a separate human-review path to update the record and notify the organizer when required information was missing.
+- Implemented JavaScript validation to identify missing and whitespace-only required fields.
+- Used explicit validation results to control the routing conditions.
+- Configured a human-review path that updates the existing spreadsheet record and notifies the organizer when required information is missing.
 
 ---
 
@@ -355,11 +390,11 @@ If I continued developing this project, I would:
 
 ## 🔗 Project Links
 
-**Live Demo:** Not available yet; the workflow currently uses Google Forms as its input interface: https://docs.google.com/forms/d/e/1FAIpQLSeLICnaQs28CzoHjc-0nJ5UXB94GrhuwjujPxMH6kdiTYOBXw/viewform?usp=dialog
+**Registration Form:** [Open the Workshop Registration Form](https://docs.google.com/forms/d/e/1FAIpQLSeLICnaQs28CzoHjc-0nJ5UXB94GrhuwjujPxMH6kdiTYOBXw/viewform?usp=dialog)
 
-**Workflow:** https://zapier.com/editor/383170822/published
+**Workflow:** [Open the Zapier Workflow](https://zapier.com/editor/383170822/published)
 
-**Repository:** Add the GitHub repository URL after publishing this project.
+**GitHub Repository:** Not published yet. This is a no-code automation project, so the repository can contain this README and the supporting screenshots; the Zapier workflow itself remains configured in Zapier.
 
 ---
 
