@@ -216,7 +216,7 @@ The provided screenshots show the Junior Frontend Developer details page and an 
 
 ### Professional Profile
 
-![Professional Profile Form](./Screenshots/profile-form-top.png)
+![Professional Profile Form](./Screenshots/02-profile-form-top.png)
 
 ![Professional Profile Form — Remaining Fields](./Screenshots/03-profile-form-bottom.png)
 
@@ -286,12 +286,12 @@ These improvements are outside the current MVP scope.
 
 **Live Demo:** [SkillBridge Lite](https://skill-bridge-lite-by-heba.lovable.app)
 
-**Repository:** [https://github.com/heba-nedal/SkillBridge-Lite.git]
+**Repository:** [Github Repository](https://github.com/heba-nedal/SkillBridge-Lite.git)
 
 ---
 
 ## 👩‍💻 Author
 
-**Heba N. Ismail**
+**Heba Nedal**
 
-[LinkedIn](#) · [GitHub](#)
+[LinkedIn](https://www.linkedin.com/in/heba-n-ismail-b836b2377/) · [GitHub](https://github.com/heba-nedal)
