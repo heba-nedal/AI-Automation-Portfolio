@@ -394,8 +394,6 @@ If I continued developing this project, I would:
 
 **Workflow:** [Open the Zapier Workflow](https://zapier.com/editor/383170822/published)
 
-**GitHub Repository:** Not published yet. This is a no-code automation project, so the repository can contain this README and the supporting screenshots; the Zapier workflow itself remains configured in Zapier.
-
 ---
 
 ## 👩‍💻 Author
