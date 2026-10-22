@@ -35,27 +35,27 @@
 
 ### 01 — Guided Project
 
-**Project:** [Course Project Name]
+**Project:** AI Client Intake & Request Routing
 
-مشروع عملي أطبّق فيه مفاهيم تحليل العمل وتصميم عملية أتمتة تعتمد على AI.
+مشروع تدريبي لأتمتة استقبال طلبات العملاء واستخراج المعلومات الأساسية منها، ثم توجيه الطلبات المكتملة إلى الفريق المناسب وتحويل الطلبات التي ينقصها معلومات إلى المراجعة البشرية.
 
-- **Problem:** [المشكلة التي يعالجها المشروع]
-- **Solution:** [وصف مختصر للحل]
-- **Tools:** [الأدوات المستخدمة]
+- **Problem:** طلبات العملاء قد تفتقد معلومات أساسية مثل الخدمة المطلوبة أو الميزانية أو الإطار الزمني، مما يصعّب تقييمها وتوجيهها.
+- **Solution:** استخدام AI by Zapier لاستخراج بيانات منظمة وفق قواعد صريحة، ثم استخدام Paths by Zapier لتوجيه الطلبات، مع تسجيلها في Google Sheets وإرسال البريد المناسب عبر Gmail.
+- **Tools:** Google Forms, AI by Zapier, Paths by Zapier, Google Sheets, Gmail.
 
-[Explore the Project](./course-project/)
+[Explore the Project](./Course-Project/)
 
 ### 02 — Independent Project
 
-**Project:** [Independent Project Name]
+**Project:** AI Workshop Registration & Participant Request Router
 
-مشروع مستقل أطبّق فيه ما تعلمته على مشكلة مختلفة، مع تصميم الحل وتنفيذه وتوثيق النتائج.
+مشروع مستقل لأتمتة استقبال تسجيلات الورش، وتلخيص أهداف التعلّم باستخدام AI، والتحقق من اكتمال الحقول المطلوبة باستخدام JavaScript، ثم توجيه التسجيلات المكتملة أو التي تحتاج إلى مراجعة بشرية.
 
-- **Problem:** [المشكلة التي يعالجها المشروع]
-- **Solution:** [وصف مختصر للحل]
-- **Tools:** [الأدوات المستخدمة]
+- **Problem:** قد تصل تسجيلات تحتوي على معلومات مطلوبة ناقصة أو فارغة، مما يتطلب التحقق منها وتحديد الإجراء المناسب.
+- **Solution:** تخزين الاستجابة أولًا في Google Sheets، ثم استخدام AI by Zapier لتلخيص أهداف التعلّم، وJavaScript للتحقق من الحقول المطلوبة، ثم توجيه السجل وتحديثه وإرسال البريد المناسب.
+- **Tools:** Google Forms, Google Sheets, AI by Zapier, Code by Zapier (JavaScript), Paths by Zapier, Gmail.
 
-[Explore the Project](./independent-project/)
+[Explore the Project](./Independent-Project/)
 
 ---
 
@@ -82,19 +82,19 @@
 
 ## 📈 Capability Progress
 
-- [ ] فهم المشكلة والنتيجة المطلوبة.
-- [ ] تفكيك العمل إلى خطوات واضحة.
-- [ ] تحديد المدخلات والمخرجات.
-- [ ] تصميم قرارات AI وRule-Based Logic.
-- [ ] تحديد الحالات التي تحتاج إلى Human Review.
-- [ ] تنفيذ الحل وتوثيق نتائجه.
+- [x] فهم المشكلة والنتيجة المطلوبة.
+- [x] تفكيك العمل إلى خطوات واضحة.
+- [x] تحديد المدخلات والمخرجات.
+- [x] تصميم قرارات AI وRule-Based Logic.
+- [x] تحديد الحالات التي تحتاج إلى Human Review.
+- [x] تنفيذ الحل وتوثيق نتائجه.
 
 ---
 
 ## 🔗 Related Projects
 
-- [Guided Project](./course-project/)
-- [Independent Project](./independent-project/)
+- [Guided Project — AI Client Intake & Request Routing](./Course-Project/)
+- [Independent Project — AI Workshop Registration & Participant Request Router](./Independent-Project/)
 
 ---
 
