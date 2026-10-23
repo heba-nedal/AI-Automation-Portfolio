@@ -310,6 +310,8 @@ The mobile report identified opportunities to reduce render-blocking resources a
 
 **Status:** ✅ Audit completed; mobile performance can be improved.
 
+**Report:** [View the PageSpeed Report](https://pagespeed.web.dev/analysis/https-task-bridge-by-heba-lovable-app/jd5t2xlfev?form_factor=mobile)
+
 ---
 
 ## 📸 Evidence
@@ -411,8 +413,6 @@ If I continued developing TaskBridge, I would:
 ## 🔗 Project Links
 
 **Live Demo:** [TaskBridge](https://task-bridge-by-heba.lovable.app)
-
-**Workflow and Testing Evidence:** [Recus Shared Run](https://www.recus.app/shared/runs/bzy9auqydGz7IlQaBDbVAmYV3oWqeK3nN41RkaH-DDI)
 
 **Repository:** [Open GitHub Repository](https://github.com/heba-nedal/task-bridge.git).
 
