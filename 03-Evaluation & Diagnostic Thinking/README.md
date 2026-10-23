@@ -48,7 +48,7 @@
 
 تم التحقق يدويًا من الوظائف الأساسية، ومراجعة إعدادات الوصول إلى البيانات، واستخدام Recus وPageSpeed Insights لتوثيق نتائج إضافية وتحديد فرص التحسين.
 
-[Explore the Project](./course-project/)
+[Explore the Project](./Course-Project/)
 
 ### 02 — Independent Project
 
@@ -62,7 +62,7 @@
 
 نجحت الاختبارات اليدوية الأساسية التي أُجريت على TaskBridge عند تطبيق السيناريوهات نفسها على Tiny Wins، كما تمت معاينة ميزات الذكاء الاصطناعي بنجاح. وكشفت الاختبارات الآلية عن حالات إضافية تحتاج إلى مراجعة، دون اعتبار جميع النتائج إخفاقات مؤكدة.
 
-[Explore the Project](./independent-project/)
+[Explore the Project](./Independent-Project/)
 
 ---
 
@@ -107,8 +107,8 @@
 
 ## 🔗 Related Projects
 
-- [Guided Project — TaskBridge](./course-project/)
-- [Independent Project — Tiny Wins](./independent-project/)
+- [Guided Project — TaskBridge](./Course-Project/)
+- [Independent Project — Tiny Wins](./Independent-Project/)
 
 ---
 
