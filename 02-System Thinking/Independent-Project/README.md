@@ -235,7 +235,7 @@ All four modes were tested on the published website. Each mode maintained a sepa
 
 ### Final Result
 
-![Portfolio Home Page](./Screenshots/01-home-page.png)
+![Portfolio Home Page](./Screenshots/01-home.png)
 
 ### Workflow
 
