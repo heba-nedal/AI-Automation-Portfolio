@@ -46,7 +46,7 @@
 - **AI Feature:** تحليل الملف المهني مقارنة بمتطلبات الفرصة المختارة، وتقديم ملاحظات مخصصة.
 - **Tools:** Lovable، وواجهة ويب، وAI Integration.
 
-[Explore the Course Project](./course-project/)
+[Explore the Course Project](./Course-Project/)
 
 ### 02 — Independent Project
 
@@ -60,7 +60,7 @@
 - **AI Feature:** أربعة أوضاع للمساعد: Portfolio، وProject Match، وCareer Fit، وAsk About My Work، مع محادثات مستقلة محفوظة في `localStorage`.
 - **Tools:** Lovable، وReact، وTypeScript، وTanStack Start، وTailwind CSS، وLovable AI Gateway، وGitHub.
 
-[Explore the Independent Project](./independent-project/)
+[Explore the Independent Project](./Independent-Project/)
 
 ---
 
