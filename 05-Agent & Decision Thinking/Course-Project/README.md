@@ -265,26 +265,6 @@ The agent replied that the details had already been saved. The user also checked
 
 ![The agent recognizes a repeated confirmation and says the lead was already saved](./Screenshots/test-3-duplicate-confirmation.png)
 
-> Screenshots intended for a public portfolio should not expose real customer names, email addresses, or phone numbers. The included evidence images redact visible contact details where applicable.
-
----
-
-## ⚠️ Challenges & Failures
-
-What needs attention based on the current evidence?
-
-- The conversation screenshot shows that the agent can explain the `First Ourcase` question when asked.
-- The spreadsheet screenshot does not clearly demonstrate that every stored value matches the final confirmed summary.
-- The current screenshots do not prove that the Google Sheets tool is technically blocked before confirmation.
-- Duplicate prevention and the behavior after a Google Sheets failure still need explicit tests.
-
-How should these be addressed?
-
-- Compare the confirmed summary with the exact appended row.
-- Add workflow-level checks for required fields, allowed values, confirmation state, and unchanged data since confirmation.
-- Test the no-confirmation path by checking both execution history and the sheet.
-- Test duplicate confirmation and tool failure before claiming production-grade reliability.
-
 ---
 
 ## 📚 What I Learned
@@ -307,9 +287,6 @@ An AI Agent can interpret messages and choose tools, but natural-language instru
 
 If I continued developing this project, I would:
 
-- Enforce the confirmation gate in the workflow before the Google Sheets append operation.
-- Strengthen duplicate protection at the workflow/data layer so repeated confirmations and retried executions remain safe even if the AI response behavior changes.
-- Validate all fields and budget categories before writing a row.
 - Add explicit handling for Google Sheets errors and verify the tool result before replying.
 - Use persistent, production-suitable storage if the workflow needs to scale beyond a single n8n instance.
 - Add automated tests for buying, renting, corrections, invalid email, missing data, no confirmation, duplicate confirmation, and tool failure.
@@ -318,9 +295,11 @@ If I continued developing this project, I would:
 
 ## 🔗 Project Links
 
-**Live Demo:** Not publicly available  
-**Workflow:** n8n workflow export or shared workflow link — add when ready  
-**Repository:** Add the GitHub repository URL when published
+**Live Demo:** Not publicly deployed
+
+**Workflow:** Built with n8n (screenshots included in this repository)
+
+**Project Documentation:** See this README for the workflow architecture, design decisions, and testing evidence.
 
 ---
 
