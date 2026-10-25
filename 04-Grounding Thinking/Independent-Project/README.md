@@ -237,8 +237,6 @@ See [`TEST_CASES.md`](./TEST_CASES.md).
 
 ![Workflow](./Screenshots/workflow.png)
 
-*Replace these image paths with the actual screenshots captured from the Dify application and workflow.*
-
 ---
 
 ## ⚠️ Challenges & Failures
