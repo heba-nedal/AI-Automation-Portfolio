@@ -204,39 +204,47 @@ This demonstrates why a failure should be investigated before changing the syste
 
 ## 🧪 Testing
 
+Testing focused on evaluating the assistant's ability to retrieve relevant knowledge, respond appropriately to user questions, handle missing information, and avoid unsupported technical instructions.
+
 ### Test 1 — Internet Connectivity Troubleshooting
 
 **Input:**
 
-A user asks for help troubleshooting an internet connectivity problem.
+The user reports that the computer is connected to Wi-Fi but cannot access websites. The user asks about possible causes and troubleshooting steps.
 
 **Expected Result:**
 
-The system retrieves relevant information from the internet-connectivity knowledge document and generates clear, sufficiently complete initial troubleshooting guidance within the assistant's defined scope.
+The assistant should check whether the available knowledge base covers the reported issue. If the sources do not provide sufficient guidance, it should acknowledge this limitation, ask relevant clarifying questions, and avoid inventing troubleshooting steps.
 
 **Actual Result:**
 
-Initial testing documented an instance in which the answer was limited despite retrieving results from the relevant knowledge document.
+The assistant explained that the available reference covered a Wi-Fi network not appearing, rather than a device connected to Wi-Fi but unable to access the internet. It asked relevant questions about the affected websites, other applications and devices, VPN or proxy usage, and previous connection attempts. It clearly stated that more information was needed before recommending a suitable next step.
 
-**Status:** ❌ Needs Improvement
+**Status:** Passed — The assistant recognized the limits of the available information, asked relevant clarifying questions, and avoided unsupported technical instructions.
 
----
-
-### Test 2 — Multiple Troubleshooting Scenarios
+### Test 2 — Handling a Problem Beyond the Knowledge Base
 
 **Input:**
 
-Questions covering computer performance, storage space, internet connectivity, and cases involving safety or the assistant's limitations.
+The user reports that a Windows 11 computer displays "Connected, no internet" across multiple networks, including a mobile hotspot. Other devices work normally, and the issue began immediately after installing a new network management program.
 
 **Expected Result:**
 
-The system retrieves relevant information and generates appropriate guidance while respecting the available knowledge, handling uncertainty, and following safety constraints.
+The assistant should use the information provided during the conversation to narrow down possible causes, acknowledge when the knowledge base lacks verified instructions for the specific issue, and provide safe guidance without presenting an unverified diagnosis as fact.
 
 **Actual Result:**
 
-Initial testing showed useful guidance in some cases, but the level of detail and completeness varied. The project notes do not provide a separate, fully documented result for every scenario in this test group.
+The assistant identified a possible connection between the newly installed program and the network issue, while explicitly stating that the cause was not confirmed. It acknowledged that the available knowledge base lacked sufficient documented instructions for this particular scenario and recommended contacting the software provider or a qualified technician. It also warned against potentially risky system changes.
 
-**Status:** ⏳ Requires Further Testing
+**Status:** Passed — The assistant respected the knowledge base limitations, handled uncertainty appropriately, and avoided unsupported technical instructions.
+
+### Testing Summary
+
+The tests demonstrated that TECHFIX could recognize when the available knowledge was insufficient, ask relevant follow-up questions, use information from previous turns, and avoid presenting speculative causes as confirmed diagnoses.
+
+The second test also highlighted an opportunity to expand the knowledge base with verified guidance for additional Windows network connectivity problems.
+
+These results evaluate the assistant's observed responses in the tested scenarios. They do not establish that every response is fully grounded in retrieved sources or that all troubleshooting scenarios are covered.
 
 ---
 
@@ -325,7 +333,7 @@ If I continued developing this project, I would:
 
 **Live Demo:** [Try TECHFIX](https://udify.app/chat/PsJmWRsJWLrFVzjv)
 
-**Workflow:** [View the workflow screenshot](./screenshots/workflow.png)
+**Workflow:** [View the workflow screenshot](./Screenshots/workflow.png)
 
 **Repository:** [TECHFIX on GitHub](https://github.com/heba-nedal/TECHFIX)
 
