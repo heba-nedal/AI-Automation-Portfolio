@@ -12,7 +12,7 @@ Lamsa Salon receives appointment requests from customers who may want different 
 
 ### The Problem
 
-Handling bookings manually can require repeated messages to collect details, check the calendar, avoid unavailable time slots, and record each appointment consistently.
+Handling bookings manually can require repeated messages to collect details, check the calendar, avoid unavailable time slots, and record each appointment consistently. A requested time may already be occupied by another appointment.
 
 ### Why It Matters
 
@@ -22,12 +22,12 @@ A structured booking workflow helps reduce back-and-forth communication, makes a
 
 ## 💡 Solution
 
-Lamsa Salon AI Booking Agent uses Telegram to collect appointment requirements, check availability, confirm booking details with the customer, and record the appointment through connected tools.
+Lamsa Salon AI Booking Agent uses Telegram to collect appointment requirements, check availability, confirm booking details with the customer, and record appointments through connected tools.
 
 What does the system do?
 
 1. Receives booking requests through Telegram.
-2. Checks calendar availability and offers alternative slots when a requested time is unavailable.
+2. Checks calendar availability and offers alternatives when a requested time is unavailable.
 3. Collects the service, date, time, location type, address when relevant, and customer contact details.
 4. Presents a booking summary and waits for customer confirmation before finalizing the booking.
 5. Creates a Google Calendar event and saves the booking record in Google Sheets.
@@ -61,7 +61,7 @@ Collect booking details
           ↓
 Check Google Calendar availability
           ↓
-Offer available time slots
+Offer available alternatives if needed
           ↓
 Present booking summary
           ↓
@@ -81,7 +81,7 @@ What does AI do in this solution?
 - Understands booking requests written in natural language.
 - Extracts the requested service, date, time, and booking preferences from the conversation.
 - Asks for missing details and explains when a requested time is unavailable.
-- Selects when to use the connected availability, booking lookup, calendar event, and spreadsheet tools.
+- Uses connected tools to check availability, create calendar events, and save booking details.
 - Presents the proposed booking details and communicates the result to the customer.
 
 ### What AI Should NOT Do
@@ -121,7 +121,7 @@ What parts of the process are automated?
 
 - Alternative time slots when the requested time is unavailable
 - A booking summary for the customer to review
-- A Google Calendar event for the confirmed appointment
+- A Google Calendar event for a confirmed appointment
 - A Google Sheets row containing the booking details and a booking key
 
 The demonstrated spreadsheet includes Service, Date, Start Time, End Time, Location Type, Address, Name, Phone, and Booking Key.
@@ -148,7 +148,7 @@ The demonstrated spreadsheet includes Service, Date, Start Time, End Time, Locat
 
 **Decision:** Check calendar availability before offering a time as available.
 
-**Why:** The agent should not promise a time slot that is already occupied. Test 1 demonstrates the assistant rejecting unavailable times and offering alternatives.
+**Why:** The agent should not promise a time slot that is already occupied. Test 2 demonstrates the agent detecting that the requested 1:00 PM haircut slot is unavailable and suggesting alternatives.
 
 ### Decision 2
 
@@ -166,48 +166,44 @@ The demonstrated spreadsheet includes Service, Date, Start Time, End Time, Locat
 
 ## 🧪 Testing
 
-### Test 1 — Handle an Unavailable Appointment Time
+### Test 1 — Successfully Book an Available Appointment
 
 **Input:**  
-The customer requested a haircut for the next day and selected 1:00 PM. The assistant reported that 1:00 PM was already booked and offered alternatives. When the customer asked about 1:30 PM, the assistant also reported that it was busy and suggested 11:00 AM, 2:15 PM, or 3:00 PM. The customer then selected 2:00 PM.
+The customer requested a makeup appointment for October 27, 2026, at 1:00 PM at the salon and provided a name and phone number. The customer then sent `confirm` after receiving the booking summary.
 
 **Expected Result:**  
-The agent should check availability, refuse to treat an occupied slot as available, and offer alternatives. Once an available time is selected, it should continue collecting the details needed for a booking.
+The agent should recognize that the requested slot is available, present the booking details for review, and confirm the booking only after the customer confirms.
 
 **Actual Result:**  
-The conversation screenshot shows the assistant rejecting the 1:00 PM and 1:30 PM requests, offering alternatives, recognizing 2:00 PM as available, and asking for the remaining booking details before presenting a summary.
+The agent reported that the time was free, presented the booking summary, asked for confirmation, and then returned a successful booking message after the customer sent `confirm`.
 
 **Evidence:**  
-![Test 1: Unavailable time and alternatives](./Screenshots/test-1-unavailable-time-alternatives.png)
+![Test 1: Successful makeup booking](./Screenshots/test-1-successful-makeup-booking.png)
 
-**Status:** ✅ PASS — based on the supplied Telegram conversation.
+**Status:** ✅ PASS
 
 ---
 
-### Test 2 — Confirm and Record a Booking
+### Test 2 — Reject a Busy Slot and Suggest Alternatives
 
 **Input:**  
-The customer requested a makeup appointment for October 27, 2026, at 1:00 PM at the salon and provided a name and phone number. In a separate booking conversation, the customer selected a 2:00 PM haircut appointment, provided the requested details, reviewed the summary, and sent `confirm`.
+After the 1:00 PM slot on October 27, 2026, had been booked for makeup in Test 1, another customer requested a haircut for the same day and time.
 
 **Expected Result:**  
-The agent should present the booking details and ask for confirmation. After confirmation, it should report success and create the corresponding appointment records in Google Calendar and Google Sheets.
+The agent should detect that 1:00 PM is already occupied, avoid creating a conflicting appointment, and suggest alternative available times. After the customer selects an alternative, it should collect the remaining details, ask for confirmation, and report the outcome accurately.
 
 **Actual Result:**  
-The supplied screenshots show a successful confirmation response for the makeup appointment and a confirmed haircut booking after the customer retried confirmation following a temporary technical-error response. The final Google Sheets screenshot shows two booking rows: Makeup from 13:00–14:00 and Haircut from 14:00–14:45 on October 27, 2026. The Google Calendar screenshot shows the corresponding events at 1:00–2:00 PM and 2:00–2:45 PM.
+The agent stated that 1:00 PM was already booked and suggested 11:00 AM, 2:00 PM, and 3:00 PM. When the customer asked about 1:30 PM, the agent also reported that it was busy and offered 11:00 AM, 2:15 PM, or 3:00 PM. The customer selected 2:00 PM, supplied the requested details, and received a booking summary. One confirmation attempt returned a temporary technical-error message; a subsequent retry received a successful confirmation.
 
 **Evidence:**
 
-![Test 2: Makeup booking conversation](./Screenshots/test-2-booking-conversation-stage-1.png)
+![Test 2, stage 1: Requested 1:00 PM slot is unavailable and alternatives are offered](./Screenshots/test-2-requested-time-unavailable.png)
 
-![Test 2: Haircut availability and booking summary](./Screenshots/test-2-booking-conversation-stage-2.png)
+![Test 2, stage 2: 1:30 PM is also busy; the customer selects 2:00 PM and receives a summary](./Screenshots/test-2-alternative-time-and-booking-summary.png)
 
-![Test 2: Confirmation retry and successful booking response](./Screenshots/test-2-booking-conversation-stage-3.png)
+![Test 2, stage 3: Temporary confirmation error followed by successful retry](./Screenshots/test-2-confirmation-retry-success.png)
 
-![Test 2: Final booking records in Google Sheets](./Screenshots/test-2-google-sheets-booking-records.png)
-
-![Test 2: Confirmed appointment events in Google Calendar](./Screenshots/test-2-google-calendar-confirmed-events.png)
-
-**Status:** ✅ PASS — the final records are visible in both services. The screenshots also document a temporary confirmation error on the haircut flow before a later retry succeeded.
+**Status:** ✅ PASS WITH A RECOVERED ERROR — the requested slot was rejected and alternatives were offered; the selected alternative was ultimately confirmed after a retry.
 
 ---
 
@@ -217,25 +213,27 @@ The supplied screenshots show a successful confirmation response for the makeup 
 
 ![Lamsa Salon Agent workflow in n8n](./Screenshots/workflow.png)
 
-### Test 1 — Unavailable Time and Alternatives
+### Test 1 — Successful Booking
 
-![The agent rejects occupied times and suggests alternatives](./Screenshots/test-1-unavailable-time-alternatives.png)
+![Successful makeup booking conversation](./Screenshots/test-1-successful-makeup-booking.png)
 
-### Test 2 — Booking Conversation
+### Test 2 — Unavailable Time and Alternatives
 
-![Makeup booking summary and confirmation](./Screenshots/test-2-booking-conversation-stage-1.png)
+![Requested time is unavailable](./Screenshots/test-2-requested-time-unavailable.png)
 
-![Haircut availability, alternatives, and booking summary](./Screenshots/test-2-booking-conversation-stage-2.png)
+![Alternative time selected and booking summary shown](./Screenshots/test-2-alternative-time-and-booking-summary.png)
 
-![Confirmation retry and successful booking response](./Screenshots/test-2-booking-conversation-stage-3.png)
+![Confirmation retry and successful response](./Screenshots/test-2-confirmation-retry-success.png)
 
-### Test 2 — Google Sheets
+### Final Result — Google Sheets
 
-![Final booking records in Google Sheets](./Screenshots/test-2-google-sheets-booking-records.png)
+![Final booking records in Google Sheets](./Screenshots/final-result-google-sheets-bookings.png)
 
-### Test 2 — Google Calendar
+### Final Result — Google Calendar
 
-![Confirmed appointment events in Google Calendar](./Screenshots/test-2-google-calendar-confirmed-events.png)
+![Final confirmed appointment events in Google Calendar](./Screenshots/final-result-google-calendar-events.png)
+
+The final records show the Makeup appointment from 1:00–2:00 PM and the Haircut appointment from 2:00–2:45 PM on October 27, 2026. The screenshots are preserved as supplied and have not been edited.
 
 ---
 
@@ -261,7 +259,7 @@ Connecting an AI Agent to calendar and spreadsheet tools can turn a conversation
 
 ### Problem-Solving Lesson
 
-Checking availability before confirming a slot reduces avoidable scheduling conflicts. The confirmation retry also shows why external tool failures should be handled carefully.
+Checking availability before confirming a slot helps prevent scheduling conflicts. The confirmation retry also shows why external tool failures should be handled carefully.
 
 ### AI Lesson
 
@@ -274,7 +272,7 @@ Natural-language understanding is only one part of a reliable agent. Tool select
 If I continued developing this project, I would:
 
 - Add stronger duplicate-booking protection at the workflow or data layer.
-- Add explicit error handling and reconciliation when calendar creation succeeds but spreadsheet saving fails, or vice versa.
+- Add explicit error handling and reconciliation if calendar creation succeeds but spreadsheet saving fails, or vice versa.
 - Test cancellation, rescheduling, missing details, and simultaneous requests for the same time slot.
 - Validate service durations and home-visit address requirements with deterministic rules.
 
@@ -284,9 +282,9 @@ If I continued developing this project, I would:
 
 **Live Demo:** Not publicly deployed; the assistant is demonstrated through Telegram.
 
-**Workflow:** Built with n8n (workflow screenshots included in this project).
+**Workflow:** Built with n8n (workflow screenshot included in this project).
 
-**Project Documentation:** See this README and the `Screenshots` folder.
+**Project Documentation:** This README and the `Screenshots` folder.
 
 ---
 
