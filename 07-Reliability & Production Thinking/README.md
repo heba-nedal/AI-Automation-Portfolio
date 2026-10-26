@@ -51,7 +51,7 @@ An AI-powered course assistant that retrieves information from course materials 
 - Inspect successful workflow executions.
 - Identify opportunities to improve retrieval quality and source transparency.
 
-[Explore the Course Project](./course-project/)
+[Explore the Course Project](./Course-Project/)
 
 ---
 
