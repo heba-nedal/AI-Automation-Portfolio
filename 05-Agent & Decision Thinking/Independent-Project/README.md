@@ -213,18 +213,6 @@ The agent stated that 1:00 PM was already booked and suggested 11:00 AM, 2:00 PM
 
 ![Lamsa Salon Agent workflow in n8n](./Screenshots/workflow.png)
 
-### Test 1 — Successful Booking
-
-![Successful makeup booking conversation](./Screenshots/test-1-successful-makeup-booking.png)
-
-### Test 2 — Unavailable Time and Alternatives
-
-![Requested time is unavailable](./Screenshots/test-2-requested-time-unavailable.png)
-
-![Alternative time selected and booking summary shown](./Screenshots/test-2-alternative-time-and-booking-summary.png)
-
-![Confirmation retry and successful response](./Screenshots/test-2-confirmation-retry-success.png)
-
 ### Final Result — Google Sheets
 
 ![Final booking records in Google Sheets](./Screenshots/final-result-google-sheets-bookings.png)
