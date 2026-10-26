@@ -152,7 +152,7 @@ What parts of the process are automated?
     relevant knowledge before composing an answer.
 
 The trigger configuration is documented in [the Google Drive Trigger
-screenshot](./screenshots/11-google-drive-trigger-settings.png). A
+screenshot](./Screenshots/11-google-drive-trigger-settings.png). A
 successful end-to-end automatic run for a newly added file is not
 claimed here unless separately verified.
 
@@ -271,7 +271,7 @@ chapters covered by the guide.
 **Status:** ✅ Pass
 
 **Evidence:** [Course-name
-answer](./screenshots/06-test-course-name-answer.png)
+answer](./Screenshots/06-test-course-name-answer.png)
 
 ------------------------------------------------------------------------
 
@@ -292,7 +292,7 @@ the guide, then provided a general-context definition.
 **Status:** ✅ Pass
 
 **Evidence:** [Out-of-scope topic
-response](./screenshots/07-test-unsupported-term-general-answer.png)
+response](./Screenshots/07-test-unsupported-term-general-answer.png)
 
 ------------------------------------------------------------------------
 
@@ -306,15 +306,15 @@ The chat trigger and AI Agent execute successfully, with the configured
 model, memory, and vector-store connections available to the agent.
 
 **Actual Result:**\
-The supplied n8n execution screenshots show successful execution
+The supplied n8n execution Screenshots show successful execution
 indicators for the chat trigger and AI Agent, with the connected model,
 memory, vector store, and embeddings components visible.
 
 **Status:** ✅ Pass
 
 **Evidence:** [Successful
-execution](./screenshots/08-rag-agent-successful-execution.png) ·
-[Execution overview](./screenshots/09-rag-agent-execution-overview.png)
+execution](./Screenshots/08-rag-agent-successful-execution.png) ·
+[Execution overview](./Screenshots/09-rag-agent-execution-overview.png)
 
 ------------------------------------------------------------------------
 
@@ -322,39 +322,39 @@ execution](./screenshots/08-rag-agent-successful-execution.png) ·
 
 ### Final Result
 
-The chat screenshots show the assistant answering a course-related
+The chat Screenshots show the assistant answering a course-related
 question and handling a topic that is outside the guide's scope.
 
 ![Final Result --- Course-name
-answer](./screenshots/06-test-course-name-answer.png)
+answer](./Screenshots/06-test-course-name-answer.png)
 
 ![Out-of-scope question
-response](./screenshots/07-test-unsupported-term-general-answer.png)
+response](./Screenshots/07-test-unsupported-term-general-answer.png)
 
 ### Workflow --- RAG Agent
 
-![RAG Agent workflow](./screenshots/05-rag-agent-workflow.png)
+![RAG Agent workflow](./Screenshots/05-rag-agent-workflow.png)
 
 ![RAG Agent successful
-execution](./screenshots/08-rag-agent-successful-execution.png)
+execution](./Screenshots/08-rag-agent-successful-execution.png)
 
 ### Workflow --- Knowledge Ingestion
 
 ![Knowledge ingestion
-workflow](./screenshots/10-knowledge-ingestion-workflow.png)
+workflow](./Screenshots/10-knowledge-ingestion-workflow.png)
 
 ![Google Drive Trigger
-settings](./screenshots/11-google-drive-trigger-settings.png)
+settings](./Screenshots/11-google-drive-trigger-settings.png)
 
 ### Supabase Knowledge Storage
 
 ![Supabase documents table
-schema](./screenshots/02-vector-table-schema.png)
+schema](./Screenshots/02-vector-table-schema.png)
 
-![Supabase table overview](./screenshots/03-database-table-overview.png)
+![Supabase table overview](./Screenshots/03-database-table-overview.png)
 
 ![Stored document chunks and
-embeddings](./screenshots/04-stored-document-chunks.png)
+embeddings](./Screenshots/04-stored-document-chunks.png)
 
 ------------------------------------------------------------------------
 
