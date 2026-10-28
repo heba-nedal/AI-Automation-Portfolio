@@ -1,0 +1,3094 @@
+{
+  "name": "KinderLink",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        -672,
+        784
+      ],
+      "id": "678ffeb4-dd04-4a80-bdbb-d4c29ad47adb",
+      "name": "Telegram Trigger",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "staff",
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "telegram_user_id",
+              "condition": "eq",
+              "keyValue": "={{ $('Telegram Trigger').first().json.message.from.id }}"
+            },
+            {
+              "keyName": "active",
+              "condition": "eq",
+              "keyValue": "true"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        784
+      ],
+      "id": "bec762cc-4548-4bb2-be95-120df5b7cf37",
+      "name": "Verify Staff",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "مرحبًا Heba 🌷 تم التحقق من هويتك بنجاح، ويمكنك استخدام KinderLink.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        160,
+        560
+      ],
+      "id": "9730e5f4-3881-4bea-a2fe-b944cccbbc08",
+      "name": "Send a text message",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Telegram Trigger').first().json.message.text.trim().toLowerCase() }}",
+                    "rightValue": "غياب:",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    },
+                    "id": "92bbbf22-5514-460f-a5cc-782cbcddb397"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Absence - AR"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "c3d59be4-6eac-4273-b119-4f4cc79a6681",
+                    "leftValue": "={{ $('Telegram Trigger').first().json.message.text.trim().toLowerCase() }}",
+                    "rightValue": "absent:",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Absence - EN"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "38e90a88-2ce3-4317-8387-379859ca3c3f",
+                    "leftValue": "={{ $('Telegram Trigger').first().json.message.text.trim().toLowerCase() }}",
+                    "rightValue": "ملاحظة:",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Daily Note - AR"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "6ffa98ca-a87e-4b20-882c-a023577d0bae",
+                    "leftValue": "={{ $('Telegram Trigger').first().json.message.text.trim().toLowerCase() }}",
+                    "rightValue": "note:",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Daily Note - EN"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "1b4c4821-a304-4385-bbd8-7b8bf0035775",
+                    "leftValue": "={{ $('Telegram Trigger').first().json.message.text.trim().toLowerCase() }}",
+                    "rightValue": "إعلان:",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Announcement - AR"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "5dc7d6df-2f5b-4fb7-bd0d-5bdde9adf144",
+                    "leftValue": "={{ $('Telegram Trigger').first().json.message.text.trim().toLowerCase() }}",
+                    "rightValue": "announcement:",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Announcement - EN"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        928,
+        -160
+      ],
+      "id": "9493798e-fea9-4190-997d-b728aab16916",
+      "name": "Route Teacher Command"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b2a94bdf-ac3b-4466-ada1-f6589b72904c",
+              "name": "command_type",
+              "value": "absence",
+              "type": "string"
+            },
+            {
+              "id": "38c3d299-cdfa-45a2-8ddf-b92b7dffd585",
+              "name": "child_name",
+              "value": "={{ $('Telegram Trigger').first().json.message.text.trim().replace(/^غياب\\s*:\\s*/, '').trim() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1296,
+        -848
+      ],
+      "id": "33d38438-fb76-445e-a691-109d77c4891a",
+      "name": "Parse Absence AR"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ec1327be-f6ee-4a29-b7e0-5780d7565f65",
+              "name": "command_type",
+              "value": "absence",
+              "type": "string"
+            },
+            {
+              "id": "1bcc4ab7-1b18-4c69-ae3b-7f5a8c7f7873",
+              "name": "child_name",
+              "value": "={{ $('Telegram Trigger').first().json.message.text.trim().replace(/^absent\\s*:\\s*/i, '').trim() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1312,
+        -576
+      ],
+      "id": "a5aa87ec-0f5c-4506-8d77-c0b4756d663c",
+      "name": "Parse Absence EN"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1568,
+        -720
+      ],
+      "id": "a5c2c206-4c81-409b-830d-9bab0e30f3e5",
+      "name": "Merge Absence"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "children",
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "child_name",
+              "condition": "eq",
+              "keyValue": "={{ $json.child_name }}"
+            },
+            {
+              "keyName": "active",
+              "condition": "eq",
+              "keyValue": "true"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1824,
+        -720
+      ],
+      "id": "1f62b37a-40ab-4c55-804f-877f999fa256",
+      "name": "Find Child",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "de1e6f49-b26f-41b8-b014-c9da160a7e30",
+              "leftValue": "={{ $json.child_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2080,
+        -720
+      ],
+      "id": "373366c4-a1ce-47c3-ace5-70311579633e",
+      "name": "Child Found?"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{    /^غياب\\s*:/i.test($('Telegram Trigger').first().json.message.text.trim())   ? 'لم أجد طفلًا بهذا الاسم. تأكد من الاسم وحاول مرة أخرى.'   : \"I couldn't find a child with that name. Please check the name and try again.\" }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2320,
+        -608
+      ],
+      "id": "7be085b4-9762-4b9e-964e-ef1ab9988d5f",
+      "name": "Child Not Found Reply",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "attendance",
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "child_id",
+              "condition": "eq",
+              "keyValue": "={{ $('Find Child').first().json.child_id }}"
+            },
+            {
+              "keyName": "attendance_date",
+              "condition": "eq",
+              "keyValue": "={{ $now.setZone('Asia/Gaza').toISODate() }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        2304,
+        -864
+      ],
+      "id": "e60084f3-4b8c-4b09-9c2a-099df75a3646",
+      "name": "Find Today's Attendance",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "667614ed-82d3-4114-a12f-af310072712a",
+              "leftValue": "={{ $json.record_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2560,
+        -864
+      ],
+      "id": "5950870c-357e-4122-ab48-bf4d61f7c0a2",
+      "name": "Attendance Exists?"
+    },
+    {
+      "parameters": {
+        "tableId": "attendance",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "child_id",
+              "fieldValue": "={{ $('Find Child').first().json.child_id }}"
+            },
+            {
+              "fieldId": "status",
+              "fieldValue": "=absent"
+            },
+            {
+              "fieldId": "recorded_by",
+              "fieldValue": "={{ $('Verify Staff').first().json.staff_id }}"
+            },
+            {
+              "fieldId": "notified",
+              "fieldValue": "false"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        2784,
+        -736
+      ],
+      "id": "334b695f-587a-4268-9511-19075da42df0",
+      "name": "Create Absence Record",
+      "credentials": {
+        "supabaseApi": {
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{   /^غياب\\s*:/i.test($('Telegram Trigger').first().json.message.text.trim())     ? '✅ تم تسجيل غياب ' + $('Find Child').first().json.child_name + ' بنجاح.'     : '✅ The absence of ' + $('Find Child').first().json.child_name + ' has been recorded successfully.' }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3024,
+        -624
+      ],
+      "id": "bc1d5e57-20a4-46b9-a793-b0ea54cfaaf9",
+      "name": "Absence Confirmation",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "child_parents",
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "child_id",
+              "condition": "eq",
+              "keyValue": "={{ $('Find Child').first().json.child_id }}"
+            },
+            {
+              "keyName": "receives_notifications",
+              "condition": "eq",
+              "keyValue": "true"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        3024,
+        -880
+      ],
+      "id": "1e05fcb7-f0cf-4300-b86e-845828650803",
+      "name": "Find Child Parents",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "parents",
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "parent_id",
+              "condition": "eq",
+              "keyValue": "={{ $json.parent_id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        3312,
+        -880
+      ],
+      "id": "c7a5763b-1641-43fc-8175-b70df2982bda",
+      "name": "Find Parent Details",
+      "credentials": {
+        "supabaseApi": {
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.telegram_id }}",
+        "text": "={{   /^غياب\\s*:/i.test($('Telegram Trigger').first().json.message.text.trim())     ? 'مرحبًا 🌷 نود إبلاغكم بأن الطفل ' + $('Find Child').first().json.child_name + ' مسجّل غائبًا اليوم.'     : 'Hello 🌷 We would like to inform you that ' + $('Find Child').first().json.child_name + ' has been marked absent today.' }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3840,
+        -1008
+      ],
+      "id": "7ee5ede3-cb4c-43e3-8169-965659a92e32",
+      "name": "Notify Parent - Absence",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "attendance",
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "record_id",
+              "condition": "eq",
+              "keyValue": "={{ $('Create Absence Record').first().json.record_id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "notified",
+              "fieldValue": "true"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        4112,
+        -1008
+      ],
+      "id": "314e8107-eefc-47c5-a123-80a5403ed220",
+      "name": "Mark Attendance Notified",
+      "credentials": {
+        "supabaseApi": {
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{   /^غياب\\s*:/i.test($('Telegram Trigger').first().json.message.text.trim())     ? 'ℹ️ غياب ' + $('Find Child').first().json.child_name + ' مسجّل بالفعل لهذا اليوم. لم يتم إنشاء سجل جديد.'     : 'ℹ️ The absence of ' + $('Find Child').first().json.child_name + ' is already recorded for today. No duplicate record was created.' }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2784,
+        -1040
+      ],
+      "id": "2271a88a-c403-4d6c-bd5a-80bd71563489",
+      "name": "Send a text message1",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "24141ac1-c2af-41cb-a274-2aa4365881da",
+              "name": "command_type",
+              "value": "daily_note",
+              "type": "string"
+            },
+            {
+              "id": "799f14e2-99f9-43b0-a7bc-69a867b17867",
+              "name": "raw_note",
+              "value": "={{ $('Telegram Trigger').first().json.message.text.trim().replace(/^ملاحظة\\s*:\\s*/i, '').trim() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1312,
+        -224
+      ],
+      "id": "71a18f76-0c1c-4368-8702-6bf9689f76d0",
+      "name": "Parse Note AR"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7505dda2-4e9c-445d-90ae-23053dc2ea1e",
+              "name": "command_type",
+              "value": "daily_note",
+              "type": "string"
+            },
+            {
+              "id": "93212cd5-4c55-46ba-8d91-c1d00e08fc76",
+              "name": "raw_note",
+              "value": "={{ $('Telegram Trigger').first().json.message.text.trim().replace(/^note\\s*:\\s*/i, '').trim() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1312,
+        -16
+      ],
+      "id": "971b37b3-0380-461b-be8e-b93d7dc28cfa",
+      "name": "Parse Note EN"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1568,
+        -112
+      ],
+      "id": "4b026cf7-ef85-4abc-a744-7b301e5995ac",
+      "name": "Merge Daily Notes"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "94634d11-a8a3-470b-b084-f36da4ad1850",
+              "name": "child_name",
+              "value": "={{ $json.raw_note.split('|')[0].trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "b77ea8ae-0665-4a59-93d2-58e7d07c0a09",
+              "name": "note_content",
+              "value": "={{ $json.raw_note.split('|').slice(1).join('|').trim() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1808,
+        -112
+      ],
+      "id": "e1a749bd-1572-4f78-8be0-a9d0aabdc111",
+      "name": "Split Note Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "463256a8-1ead-424a-b9c1-67d1c4b808df",
+              "leftValue": "={{ $json.child_name }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "e328476b-3e77-4202-99d4-7e043d331b90",
+              "leftValue": "={{ $json.note_content }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2032,
+        -112
+      ],
+      "id": "112cc37b-b26d-4d52-9159-f9d3a35939ed",
+      "name": "Note Input Valid?"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{   /^ملاحظة\\s*:/i.test($('Telegram Trigger').first().json.message.text.trim())     ? 'يرجى كتابة الملاحظة بهذا الشكل:\\nملاحظة: اسم الطفل | نص الملاحظة\\nمثال: ملاحظة: أحمد | أكل كويس ونام ساعة'     : 'Please use this format:\\nNote: Child Name | Note content\\nExample: Note: Ahmed | Ate well and slept for an hour' }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2288,
+        -32
+      ],
+      "id": "b21cb7b4-fe94-46f9-9402-1f148b6c5331",
+      "name": "Send a text message2",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "children",
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "child_name",
+              "condition": "eq",
+              "keyValue": "={{ $('Split Note Fields').first().json.child_name }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        2288,
+        -224
+      ],
+      "id": "515861ec-b249-4715-aa80-dbd55ac20c1c",
+      "name": "Find Note Child",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "cec6b274-c568-4707-80d6-5d2510658ccb",
+              "leftValue": "={{ $json.child_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2528,
+        -224
+      ],
+      "id": "77f35eb2-ac67-4f0e-ae02-c98c7379c427",
+      "name": "Note Child Found?"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{    /^ملاحظة\\s*:/i.test($('Telegram Trigger').first().json.message.text.trim())   ? 'لم أجد طفلًا بهذا الاسم. تأكد من الاسم وحاول مرة أخرى.'   : \"I couldn't find a child with that name. Please check the name and try again.\" }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2800,
+        -144
+      ],
+      "id": "a53d5929-1140-4150-a341-ec5f8d5d4440",
+      "name": "Child Not Found Reply1",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=You are the daily-note writing assistant for KinderLink, a kindergarten communication system.\n\nRewrite the teacher's note into a warm, clear, respectful message for the child's parent.\n\nRules:\n- Preserve the original meaning and all factual details.\n- Never invent or infer facts.\n- Do not add diagnoses, health claims, explanations, or assumptions.\n- Do not change the child's name.\n- Return only the polished message, without headings or explanations.\n\nLanguage:\n{{ /^ملاحظة\\s*:/i.test($('Telegram Trigger').first().json.message.text.trim()) ? 'Arabic' : 'English' }}\n\nChild name:\n{{ $('Split Note Fields').first().json.child_name }}\n\nTeacher's original note:\n{{ $('Split Note Fields').first().json.note_content }}\n\n- Do not add time references such as \"today\" unless explicitly stated in the original note.\n- Use the exact child name provided in the Child name field. Do not expand or modify it.\n- Do not add any detail, context, or implication that is not explicitly present in the teacher's original note."
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        2736,
+        -320
+      ],
+      "id": "779ff173-2093-4740-9496-62dd6ba5916c",
+      "name": "AI - Polish Daily Note",
+      "credentials": {
+        "openAiApi": {
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "child_parents",
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "child_id",
+              "condition": "eq",
+              "keyValue": "={{ $('Find Note Child').first().json.child_id }}"
+            },
+            {
+              "keyName": "receives_notifications",
+              "condition": "eq",
+              "keyValue": "true"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        3104,
+        -320
+      ],
+      "id": "f9d02047-a68c-4231-b34b-4b0b6f4ee4d1",
+      "name": "Find Note Parents",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "parents",
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "parent_id",
+              "condition": "eq",
+              "keyValue": "={{ $json.parent_id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        3328,
+        -320
+      ],
+      "id": "377ffc31-ee9a-465a-b675-1113e911f481",
+      "name": "Find Note Parent Details",
+      "credentials": {
+        "supabaseApi": {
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "31468000-7606-4d42-ac4a-f3b13f220519",
+              "leftValue": "={{ $json.active }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "bc9d7bdb-04e3-4424-bfd4-b948e1e04369",
+              "leftValue": "={{ $json.telegram_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        3552,
+        -320
+      ],
+      "id": "7dad3aca-0303-48aa-82e8-fdc655b75a0e",
+      "name": "Note Parent Can Be Notified?"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Find Note Parent Details').first().json.telegram_id }}",
+        "text": "={{    /^ملاحظة\\s*:/i.test($('Telegram Trigger').first().json.message.text.trim())     ? '🌷 ملاحظة يومية عن ' + $('Find Note Child').first().json.child_name + '\\n\\n' + $('AI - Polish Daily Note').first().json.output[0].content[0].text     : '🌷 Daily note about ' + $('Find Note Child').first().json.child_name + '\\n\\n' + $('AI - Polish Daily Note').first().json.output[0].content[0].text }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3776,
+        -416
+      ],
+      "id": "6ea67487-9156-4fe0-aaff-c537abb16863",
+      "name": "Send Daily Note to Parent",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "tableId": "message_log",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "child_id",
+              "fieldValue": "={{ $('Find Note Child').first().json.child_id }}"
+            },
+            {
+              "fieldId": "recipient_telegram_id",
+              "fieldValue": "={{ $('Find Note Parent Details').first().json.telegram_id }}"
+            },
+            {
+              "fieldId": "message_type",
+              "fieldValue": "daily_note"
+            },
+            {
+              "fieldId": "source_text",
+              "fieldValue": "={{ $('Split Note Fields').first().json.note_content }}"
+            },
+            {
+              "fieldId": "message_text",
+              "fieldValue": "={{   /^ملاحظة\\s*:/i.test($('Telegram Trigger').first().json.message.text.trim())     ? '🌷 ملاحظة يومية عن ' + $('Find Note Child').first().json.child_name + '\\n\\n' + $('AI - Polish Daily Note').first().json.output[0].content[0].text     : '🌷 Daily note about ' + $('Find Note Child').first().json.child_name + '\\n\\n' + $('AI - Polish Daily Note').first().json.output[0].content[0].text }}"
+            },
+            {
+              "fieldId": "status",
+              "fieldValue": "sent"
+            },
+            {
+              "fieldId": "sent_at",
+              "fieldValue": "={{ $now.toISO() }}"
+            },
+            {
+              "fieldId": "attempts",
+              "fieldValue": "1"
+            },
+            {
+              "fieldId": "idempotency_key",
+              "fieldValue": "={{ 'daily_note:' + $('Find Note Child').first().json.child_id + ':' + $('Find Note Parent Details').first().json.telegram_id + ':' + $('Telegram Trigger').first().json.message.message_id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        4000,
+        -416
+      ],
+      "id": "3532cab3-fad2-4fad-ab4b-7caf4f4a0a9f",
+      "name": "Log Daily Note Message",
+      "credentials": {
+        "supabaseApi": {
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c5eab7ca-4be8-45d6-b3d6-09eaf67e6689",
+              "name": "command_type",
+              "value": "announcement",
+              "type": "string"
+            },
+            {
+              "id": "3fdbde8c-ebb9-4363-b037-f4bfa7735241",
+              "name": "language",
+              "value": "ar",
+              "type": "string"
+            },
+            {
+              "id": "c0995818-ebb5-4a23-8227-8ce8a30023df",
+              "name": "announcement_text",
+              "value": "={{ $('Telegram Trigger').first().json.message.text.trim().replace(/^إعلان\\s*:\\s*/i, '').trim() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1312,
+        192
+      ],
+      "id": "9b6c9a9b-317b-44d8-ac2d-dc42f53ca3c0",
+      "name": "Parse Announcement AR"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9b6f4dc0-8191-401c-98b4-4a131ea527b6",
+              "name": "command_type",
+              "value": "announcement",
+              "type": "string"
+            },
+            {
+              "id": "2a40282b-cdd7-4db2-be73-2151ead6a96d",
+              "name": "language",
+              "value": "en",
+              "type": "string"
+            },
+            {
+              "id": "4878b830-2f6f-4ffd-b6c7-88ccd593504a",
+              "name": "announcement_text",
+              "value": "={{ $('Telegram Trigger').first().json.message.text.trim().replace(/^announcement\\s*:\\s*/i, '').trim() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1312,
+        416
+      ],
+      "id": "557cdb57-097d-4cd8-92bf-78ccb70cf2f1",
+      "name": "Parse Announcement EN"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "dfc35d6c-3331-4c2b-aacb-72b8c43f1361",
+              "leftValue": "={{ $json.active }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "a415af93-0a73-4369-a854-a276fa8fc1e0",
+              "leftValue": "={{ $json.telegram_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        3600,
+        -880
+      ],
+      "id": "8c2e2181-6323-46ff-bde3-402d069b059c",
+      "name": "Parent Can Be Notified?"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{   /^ملاحظة\\s*:/i.test($('Telegram Trigger').first().json.message.text.trim())     ? '⚠️ تم إعداد الملاحظة، لكن تعذّر إرسالها إلى ولي الأمر. يرجى التحقق من أن حساب ولي الأمر نشط وأن Telegram ID مسجّل بشكل صحيح.'     : '⚠️ The note was prepared, but it could not be sent to the parent. Please verify that the parent account is active and the Telegram ID is registered correctly.' }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3776,
+        -224
+      ],
+      "id": "64bee040-65e1-463e-be28-3ced8dc0bc17",
+      "name": "Note Parent Unavailable Reply",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{   /^غياب\\s*:/i.test($('Telegram Trigger').first().json.message.text.trim())     ? '⚠️ تم تسجيل الغياب، لكن تعذّر إرسال الإشعار إلى ولي الأمر. يرجى التحقق من أن حساب ولي الأمر نشط وأن Telegram ID مسجّل بشكل صحيح.'     : '⚠️ The absence was recorded, but the parent could not be notified. Please verify that the parent account is active and the Telegram ID is registered correctly.' }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3840,
+        -768
+      ],
+      "id": "7be7685d-0896-464d-b8c7-1fa6bb07df99",
+      "name": "Parent Unavailable Reply - Absence",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1568,
+        304
+      ],
+      "id": "eec2b297-cf1e-4608-967a-ca487a9e5601",
+      "name": "Merge Announcements"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "9a45fd99-3099-47f6-b87b-2e99f7980a0f",
+              "leftValue": "={{ $json.announcement_text }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "e61e47e4-9fe2-4be6-b29c-eba5b63a61f8",
+              "leftValue": "={{ ['ar', 'en'].includes($json.language) }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1776,
+        304
+      ],
+      "id": "d9c06f3e-7e07-477e-a743-03fb14c988ad",
+      "name": "Announcement Valid?"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{   /^إعلان\\s*:/i.test($('Telegram Trigger').first().json.message.text.trim())     ? '⚠️ نص الإعلان فارغ أو غير صالح. يرجى استخدام الصيغة:\\nإعلان: نص الإعلان\\nمثال: إعلان: غدًا عطلة'     : '⚠️ The announcement text is empty or invalid. Please use this format:\\nAnnouncement: Announcement text\\nExample: Announcement: Tomorrow is a holiday' }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2032,
+        416
+      ],
+      "id": "12dd37db-cdbc-45c2-bd14-1aa035065266",
+      "name": "Invalid Announcement Reply",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "staff",
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "role",
+              "condition": "eq",
+              "keyValue": "admin"
+            },
+            {
+              "keyName": "active",
+              "condition": "eq",
+              "keyValue": "true"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        2032,
+        208
+      ],
+      "id": "77bd526d-8cc9-490c-b31f-88bba4bc0c65",
+      "name": "Find Active Admin",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Find Active Admin').first().json.telegram_user_id }}",
+        "text": "={{\n  $('Create Announcement Request').first().json.language === 'ar'\n    ? '📣 طلب موافقة على إعلان\\n\\nرقم الطلب: ' +\n      $('Create Announcement Request').first().json.request_id +\n      '\\n\\n' +\n      $('Create Announcement Request').first().json.announcement_text +\n      '\\n\\nللموافقة أرسل:\\nموافقة إعلان: ' +\n      $('Create Announcement Request').first().json.request_id +\n      '\\n\\nللرفض أرسل:\\nرفض إعلان: ' +\n      $('Create Announcement Request').first().json.request_id\n    : '📣 Announcement approval request\\n\\nRequest ID: ' +\n      $('Create Announcement Request').first().json.request_id +\n      '\\n\\n' +\n      $('Create Announcement Request').first().json.announcement_text +\n      '\\n\\nTo approve, send:\\nApprove announcement: ' +\n      $('Create Announcement Request').first().json.request_id +\n      '\\n\\nTo reject, send:\\nReject announcement: ' +\n      $('Create Announcement Request').first().json.request_id\n}}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2496,
+        208
+      ],
+      "id": "2ee7ea15-5355-4211-810a-3804c298cba9",
+      "name": "Request Announcement Approval",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "tableId": "announcement_requests",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "requested_by",
+              "fieldValue": "={{ $('Verify Staff').first().json.staff_id }}"
+            },
+            {
+              "fieldId": "announcement_text",
+              "fieldValue": "={{ $('Merge Announcements').first().json.announcement_text }}"
+            },
+            {
+              "fieldId": "language",
+              "fieldValue": "={{ $('Merge Announcements').first().json.language }}"
+            },
+            {
+              "fieldId": "status",
+              "fieldValue": "pending"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        2256,
+        208
+      ],
+      "id": "66eeed60-847e-4b8f-8142-1e7dd98f32ad",
+      "name": "Create Announcement Request",
+      "credentials": {
+        "supabaseApi": {
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "5c485ed5-1814-4b46-8feb-ac9f55acaf17",
+              "leftValue": "={{ $json.staff_id }}",
+              "rightValue": "teacher",
+              "operator": {
+                "type": "number",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -112,
+        784
+      ],
+      "id": "923a44f3-152f-4c6f-823f-3b2bd65ab232",
+      "name": "Authorized Staff?",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Verify Staff').item.json.role }}",
+                    "rightValue": "teacher",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "2d3990e9-b2d7-459b-b215-ef7265e6f291"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "d29e016a-2fbb-40f6-bc9a-ba725bc32aed",
+                    "leftValue": "={{ $('Verify Staff').item.json.role }}",
+                    "rightValue": "admin",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        384,
+        560
+      ],
+      "id": "e0ece2af-b7f5-4845-ae3d-6d064d4f5da8",
+      "name": "Route Staff Role"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Telegram Trigger').first().json.message.text.trim() }}",
+                    "rightValue": "موافقة إعلان:",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    },
+                    "id": "4f8fcb59-bb41-4944-8664-a352c47361ee"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Approve - AR"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "2cc4e03e-c542-4cc2-9bad-637e0b4a038f",
+                    "leftValue": "={{ $('Telegram Trigger').first().json.message.text.trim().toLowerCase() }}",
+                    "rightValue": "approve announcement:",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Approve - EN"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "251a1c8b-f957-42cd-9e41-de9b18231178",
+                    "leftValue": "={{ $('Telegram Trigger').first().json.message.text.trim() }}",
+                    "rightValue": "رفض إعلان:",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Reject - AR"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "43a722be-9632-4bfc-ac06-4e730b2f7b49",
+                    "leftValue": "={{ $('Telegram Trigger').first().json.message.text.trim().toLowerCase() }}",
+                    "rightValue": "reject announcement:",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Reject - EN"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        880,
+        1232
+      ],
+      "id": "2eecf056-bae7-4bd1-92a2-e5a85efe3230",
+      "name": "Route Admin Approval Command"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "762082dc-07fc-45d9-8e7d-960bf19340d0",
+              "name": "action",
+              "value": "approve",
+              "type": "string"
+            },
+            {
+              "id": "9a962b16-9284-41a2-b261-41feadb2e6cc",
+              "name": "language",
+              "value": "ar",
+              "type": "string"
+            },
+            {
+              "id": "6e5558e6-10e2-4cde-8e69-6cc0859a217a",
+              "name": "request_id",
+              "value": "={{ Number($('Telegram Trigger').first().json.message.text.trim().replace(/^موافقة إعلان\\s*:\\s*/i, '').trim()) }}",
+              "type": "number"
+            },
+            {
+              "id": "18227745-5bc5-47de-a4ef-e1399be88f74",
+              "name": "admin_staff_id",
+              "value": "={{ $('Verify Staff').first().json.staff_id }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1312,
+        992
+      ],
+      "id": "99b0883c-89c3-4b7b-a50c-aba3f48327bf",
+      "name": "Parse Approve AR"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7d56ab37-887e-450e-8c9d-e328a5961ebf",
+              "name": "action",
+              "value": "approve",
+              "type": "string"
+            },
+            {
+              "id": "60481d02-f92c-4216-827c-319b462f1959",
+              "name": "language",
+              "value": "en",
+              "type": "string"
+            },
+            {
+              "id": "15d7045e-5008-4df5-9ccd-95338b94e3e0",
+              "name": "request_id",
+              "value": "={{ Number($('Telegram Trigger').first().json.message.text.trim().replace(/^approve announcement\\s*:\\s*/i, '').trim()) }}",
+              "type": "number"
+            },
+            {
+              "id": "7a32cdc8-2c5a-4fd6-9387-99cd5326be52",
+              "name": "admin_staff_id",
+              "value": "={{ $('Verify Staff').first().json.staff_id }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1312,
+        1184
+      ],
+      "id": "5cfbd4c8-4c8c-453e-98c0-d2222cdefc27",
+      "name": "Parse Approve EN"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1552,
+        1072
+      ],
+      "id": "c0bc1025-d629-40e2-92db-d22cd6c7df5e",
+      "name": "Merge Approvals"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "announcement_requests",
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "request_id",
+              "condition": "eq",
+              "keyValue": "={{ Number($json.request_id) }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1776,
+        1072
+      ],
+      "id": "01022f23-474c-4a19-a6ff-a4c7b58ce1c8",
+      "name": "Find Announcement Request",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "69fb272d-385a-4276-86c0-b077bb774015",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "pending",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2000,
+        1072
+      ],
+      "id": "eae8574a-df7d-49e0-a21d-73991b3a3702",
+      "name": "Announcement Request Pending?"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "announcement_requests",
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "request_id",
+              "condition": "eq",
+              "keyValue": "={{ Number($json.request_id) }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "status",
+              "fieldValue": "approved"
+            },
+            {
+              "fieldId": "approved_at",
+              "fieldValue": "={{ $now.toISO() }}"
+            },
+            {
+              "fieldId": "approved_by",
+              "fieldValue": "={{ Number($('Merge Approvals').first().json.admin_staff_id) }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        2224,
+        912
+      ],
+      "id": "646950f0-c9fb-4496-bef4-f7351c21d02e",
+      "name": "Approve Announcement Request",
+      "credentials": {
+        "supabaseApi": {
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "parents",
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "active",
+              "condition": "eq",
+              "keyValue": "true"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        2624,
+        912
+      ],
+      "id": "25d99a00-fd44-4894-89e6-a6c45fa465b3",
+      "name": "Find Announcement Parents",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "c13d1073-4019-4d97-b19c-e6d4bb3cce60",
+              "leftValue": "={{ $json.telegram_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2816,
+        912
+      ],
+      "id": "edbeb577-19a5-4fcf-957c-91528a4012ea",
+      "name": "Parent Has Telegram ID?"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "50bf68ef-2034-4cc6-be89-3ad1bcd68bc8",
+              "name": "message_text",
+              "value": "={{   $('Find Announcement Request').first().json.language === 'ar'     ? '📢 إعلان من إدارة الروضة\\n\\n' + $('Find Announcement Request').first().json.announcement_text     : '📢 Announcement from Kindergarten Management\\n\\n' + $('Find Announcement Request').first().json.announcement_text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        3056,
+        896
+      ],
+      "id": "636f076d-1edc-4f62-bb51-263b26f85313",
+      "name": "Prepare Announcement Message"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.telegram_id }}",
+        "text": "={{ $json.message_text }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3296,
+        896
+      ],
+      "id": "6767e8d4-c096-4553-a99c-43ef4ac115ca",
+      "name": "Send Announcement to Parent",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "tableId": "message_log",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "recipient_telegram_id",
+              "fieldValue": "={{ $('Prepare Announcement Message').item.json.telegram_id }}"
+            },
+            {
+              "fieldId": "message_type",
+              "fieldValue": "announcement"
+            },
+            {
+              "fieldId": "source_text",
+              "fieldValue": "={{ $('Find Announcement Request').first().json.announcement_text }}"
+            },
+            {
+              "fieldId": "message_text",
+              "fieldValue": "={{ $('Prepare Announcement Message').item.json.message_text }}"
+            },
+            {
+              "fieldId": "status",
+              "fieldValue": "sent"
+            },
+            {
+              "fieldId": "sent_at",
+              "fieldValue": "={{ $now.toISO() }}"
+            },
+            {
+              "fieldId": "attempts",
+              "fieldValue": "1"
+            },
+            {
+              "fieldId": "idempotency_key",
+              "fieldValue": "={{ 'announcement:' + $('Find Announcement Request').first().json.request_id + ':' + $('Prepare Announcement Message').item.json.telegram_id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        3552,
+        896
+      ],
+      "id": "3f8c149e-bc33-4909-9791-7a271d45ba25",
+      "name": "Log Announcement Message",
+      "credentials": {
+        "supabaseApi": {
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "announcement_requests",
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "request_id",
+              "condition": "eq",
+              "keyValue": "={{ $('Find Announcement Request').first().json.request_id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "status",
+              "fieldValue": "sent"
+            },
+            {
+              "fieldId": "sent_at",
+              "fieldValue": "={{ $now.toISO() }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        3808,
+        896
+      ],
+      "id": "9f202a10-4c98-4937-8293-e43b85da3253",
+      "name": "Mark Announcement Request Sent",
+      "credentials": {
+        "supabaseApi": {
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fa646fa6-4911-4fef-9aa2-85929c4a7092",
+              "name": "action",
+              "value": "reject",
+              "type": "string"
+            },
+            {
+              "id": "6301fddf-a1c4-482d-b6ff-bd51dd29c950",
+              "name": "language",
+              "value": "ar",
+              "type": "string"
+            },
+            {
+              "id": "248c06fc-3763-40d0-b424-b166ec8f2ee3",
+              "name": "request_id",
+              "value": "={{ Number($('Telegram Trigger').first().json.message.text.trim().replace(/^رفض إعلان\\s*:\\s*/i, '').trim()) }}",
+              "type": "number"
+            },
+            {
+              "id": "40246425-f384-4ad5-8674-3d72a0667451",
+              "name": "admin_staff_id",
+              "value": "={{ $('Verify Staff').first().json.staff_id }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1312,
+        1376
+      ],
+      "id": "3d451316-992c-4491-b572-57efe8bfaba7",
+      "name": "Parse Reject AR"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e75da54f-b967-487a-8345-bd932d6bc34c",
+              "name": "action",
+              "value": "reject",
+              "type": "string"
+            },
+            {
+              "id": "7f1269e3-a7df-478b-b60b-645e39e069a6",
+              "name": "language",
+              "value": "en",
+              "type": "string"
+            },
+            {
+              "id": "399af057-74f7-498c-ac6b-3e6671697efa",
+              "name": "request_id",
+              "value": "={{ Number($('Telegram Trigger').first().json.message.text.trim().replace(/^reject announcement\\s*:\\s*/i, '').trim()) }}",
+              "type": "number"
+            },
+            {
+              "id": "498653c2-4a51-4c58-abb4-b42cff428be1",
+              "name": "admin_staff_id",
+              "value": "={{ $('Verify Staff').first().json.staff_id }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1312,
+        1584
+      ],
+      "id": "264ec1cf-6da9-4d4a-9118-b87b9c464bbe",
+      "name": "Parse Reject EN"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1552,
+        1472
+      ],
+      "id": "76385e1c-3aee-4531-ba3e-165cbbd407b7",
+      "name": "Merge Rejections"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "announcement_requests",
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "request_id",
+              "condition": "eq",
+              "keyValue": "={{ Number($json.request_id) }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1776,
+        1472
+      ],
+      "id": "0f4c7121-52c7-4ce6-a922-71b27006c74b",
+      "name": "Get many rows",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "fd3af6ec-df87-444d-84b5-1f4fea7ed3bd",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "pending",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2000,
+        1472
+      ],
+      "id": "c26d71aa-b9a8-4565-ad6d-93c99729150b",
+      "name": "Rejection Request Pending?"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "announcement_requests",
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "request_id",
+              "condition": "eq",
+              "keyValue": "={{ Number($json.request_id) }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "status",
+              "fieldValue": "rejected"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        2224,
+        1376
+      ],
+      "id": "1efd4b87-5dd7-42e7-aa07-7ebc942f91db",
+      "name": "Reject Announcement Request",
+      "credentials": {
+        "supabaseApi": {
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{   $('Merge Rejections').first().json.language === 'ar'     ? '✅ تم رفض طلب الإعلان رقم ' + $('Merge Rejections').first().json.request_id + '.'     : '✅ Announcement request #' + $('Merge Rejections').first().json.request_id + ' has been rejected.' }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2448,
+        1376
+      ],
+      "id": "cd93ac96-519b-4b69-b2f6-dcf67630ab3c",
+      "name": "Confirm Announcement Rejection",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{   $('Merge Rejections').first().json.language === 'ar'     ? '⚠️ تعذر رفض الطلب رقم ' + $('Merge Rejections').first().json.request_id + '.\\nقد يكون الطلب غير موجود أو سبق التعامل معه.'     : '⚠️ Could not reject request #' + $('Merge Rejections').first().json.request_id + '.\\nThe request may not exist or may have already been processed.' }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2224,
+        1568
+      ],
+      "id": "94139ff1-75dd-47ba-a07c-5dd146d777ce",
+      "name": "Rejection Request Unavailable Reply",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{   $('Merge Approvals').first().json.language === 'ar'     ? '⚠️ تعذرت الموافقة على الطلب رقم ' + $('Merge Approvals').first().json.request_id + '.\\nقد يكون الطلب غير موجود أو سبق التعامل معه.'     : '⚠️ Could not approve request #' + $('Merge Approvals').first().json.request_id + '.\\nThe request may not exist or may have already been processed.' }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2224,
+        1168
+      ],
+      "id": "0d1547c8-c2cf-4f37-af66-d5796424543e",
+      "name": "Approval Request Unavailable Reply",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{   $('Merge Approvals').first().json.language === 'ar'     ? '✅ تم الموافقة على طلب الإعلان رقم ' + $('Merge Approvals').first().json.request_id + '.'     : '✅ Announcement request #' + $('Merge Approvals').first().json.request_id + ' has been approved.' }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2416,
+        912
+      ],
+      "id": "ddd2d25e-94e0-48e9-a112-c0f5410f7117",
+      "name": "Confirm Announcement Approval",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Verify Staff",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verify Staff": {
+      "main": [
+        [
+          {
+            "node": "Authorized Staff?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        [
+          {
+            "node": "Route Staff Role",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Teacher Command": {
+      "main": [
+        [
+          {
+            "node": "Parse Absence AR",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Parse Absence EN",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Parse Note AR",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Parse Note EN",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Parse Announcement AR",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Parse Announcement EN",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Absence AR": {
+      "main": [
+        [
+          {
+            "node": "Merge Absence",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Absence EN": {
+      "main": [
+        [
+          {
+            "node": "Merge Absence",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Absence": {
+      "main": [
+        [
+          {
+            "node": "Find Child",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Child": {
+      "main": [
+        [
+          {
+            "node": "Child Found?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Child Found?": {
+      "main": [
+        [
+          {
+            "node": "Find Today's Attendance",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Child Not Found Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Today's Attendance": {
+      "main": [
+        [
+          {
+            "node": "Attendance Exists?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Attendance Exists?": {
+      "main": [
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create Absence Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Absence Record": {
+      "main": [
+        [
+          {
+            "node": "Absence Confirmation",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Find Child Parents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Child Parents": {
+      "main": [
+        [
+          {
+            "node": "Find Parent Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Parent Details": {
+      "main": [
+        [
+          {
+            "node": "Parent Can Be Notified?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify Parent - Absence": {
+      "main": [
+        [
+          {
+            "node": "Mark Attendance Notified",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Note AR": {
+      "main": [
+        [
+          {
+            "node": "Merge Daily Notes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Note EN": {
+      "main": [
+        [
+          {
+            "node": "Merge Daily Notes",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Daily Notes": {
+      "main": [
+        [
+          {
+            "node": "Split Note Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Note Fields": {
+      "main": [
+        [
+          {
+            "node": "Note Input Valid?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Note Input Valid?": {
+      "main": [
+        [
+          {
+            "node": "Find Note Child",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Note Child": {
+      "main": [
+        [
+          {
+            "node": "Note Child Found?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Note Child Found?": {
+      "main": [
+        [
+          {
+            "node": "AI - Polish Daily Note",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Child Not Found Reply1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI - Polish Daily Note": {
+      "main": [
+        [
+          {
+            "node": "Find Note Parents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Note Parents": {
+      "main": [
+        [
+          {
+            "node": "Find Note Parent Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Note Parent Details": {
+      "main": [
+        [
+          {
+            "node": "Note Parent Can Be Notified?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Note Parent Can Be Notified?": {
+      "main": [
+        [
+          {
+            "node": "Send Daily Note to Parent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Note Parent Unavailable Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Daily Note to Parent": {
+      "main": [
+        [
+          {
+            "node": "Log Daily Note Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parent Can Be Notified?": {
+      "main": [
+        [
+          {
+            "node": "Notify Parent - Absence",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Parent Unavailable Reply - Absence",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Announcement AR": {
+      "main": [
+        [
+          {
+            "node": "Merge Announcements",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Announcement EN": {
+      "main": [
+        [
+          {
+            "node": "Merge Announcements",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Announcements": {
+      "main": [
+        [
+          {
+            "node": "Announcement Valid?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Announcement Valid?": {
+      "main": [
+        [
+          {
+            "node": "Find Active Admin",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Invalid Announcement Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Active Admin": {
+      "main": [
+        [
+          {
+            "node": "Create Announcement Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Announcement Request": {
+      "main": [
+        [
+          {
+            "node": "Request Announcement Approval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Authorized Staff?": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Staff Role": {
+      "main": [
+        [
+          {
+            "node": "Route Teacher Command",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Route Admin Approval Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Admin Approval Command": {
+      "main": [
+        [
+          {
+            "node": "Parse Approve AR",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Parse Approve EN",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Parse Reject AR",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Parse Reject EN",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Approve AR": {
+      "main": [
+        [
+          {
+            "node": "Merge Approvals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Approve EN": {
+      "main": [
+        [
+          {
+            "node": "Merge Approvals",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Approvals": {
+      "main": [
+        [
+          {
+            "node": "Find Announcement Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Announcement Request": {
+      "main": [
+        [
+          {
+            "node": "Announcement Request Pending?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Announcement Request Pending?": {
+      "main": [
+        [
+          {
+            "node": "Approve Announcement Request",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Approval Request Unavailable Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Approve Announcement Request": {
+      "main": [
+        [
+          {
+            "node": "Confirm Announcement Approval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Announcement Parents": {
+      "main": [
+        [
+          {
+            "node": "Parent Has Telegram ID?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parent Has Telegram ID?": {
+      "main": [
+        [
+          {
+            "node": "Prepare Announcement Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Announcement Message": {
+      "main": [
+        [
+          {
+            "node": "Send Announcement to Parent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Announcement to Parent": {
+      "main": [
+        [
+          {
+            "node": "Log Announcement Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Announcement Message": {
+      "main": [
+        [
+          {
+            "node": "Mark Announcement Request Sent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Reject AR": {
+      "main": [
+        [
+          {
+            "node": "Merge Rejections",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Reject EN": {
+      "main": [
+        [
+          {
+            "node": "Merge Rejections",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Rejections": {
+      "main": [
+        [
+          {
+            "node": "Get many rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many rows": {
+      "main": [
+        [
+          {
+            "node": "Rejection Request Pending?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rejection Request Pending?": {
+      "main": [
+        [
+          {
+            "node": "Reject Announcement Request",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Rejection Request Unavailable Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reject Announcement Request": {
+      "main": [
+        [
+          {
+            "node": "Confirm Announcement Rejection",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Confirm Announcement Approval": {
+      "main": [
+        [
+          {
+            "node": "Find Announcement Parents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": true
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "nodeGroups": [],
+  "tags": []
+}
