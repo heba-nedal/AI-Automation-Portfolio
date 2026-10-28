@@ -92,7 +92,7 @@ The workflow coordinates staff commands, database lookups, AI-assisted note refi
 - OpenAI
 - JavaScript
 
-[Explore the KinderLink Project](./KinderLink/)
+[Explore the KinderLink Project](./Independent-Project/)
 
 ---
 
@@ -196,4 +196,4 @@ Professional solution engineering requires understanding the problem, choosing t
 
 ## 🔗 Related Project
 
-- [KinderLink — Kindergarten Communication Automation](./KinderLink/)
+- [KinderLink — Kindergarten Communication Automation](./Independent-Project/)
