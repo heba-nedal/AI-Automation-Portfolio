@@ -243,7 +243,7 @@ The workflow should be tested in a controlled environment with test accounts and
 The repository includes the exported n8n workflow:
 
 ```text
-KinderLink/
+Independent-Project/
 └── kinderlink-main-workflow.json
 ```
 
